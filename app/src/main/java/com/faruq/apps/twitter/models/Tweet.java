@@ -3,13 +3,14 @@ package com.faruq.apps.twitter.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
 import com.faruq.apps.twitter.models.User;
 
-
+@Parcel
 public class Tweet {
     // Define database columns and associated fields
     String id;

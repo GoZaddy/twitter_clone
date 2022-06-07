@@ -4,7 +4,9 @@ import androidx.room.ColumnInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
+@Parcel
 public class User {
 
     String name;
