@@ -9,13 +9,17 @@ import org.parceler.Parcel;
 @Parcel
 public class User {
 
+    String id;
+
+    String userID;
+
     String name;
 
     String profileImage;
 
     // normally this field would be annotated @PrimaryKey because this is an embedded object
     // it is not needed
-    String id;
+
 
     public User(){
 
@@ -24,8 +28,9 @@ public class User {
     public static User fromJSON(JSONObject tweetJson) throws JSONException {
 
         User user = new User();
-        user.id = tweetJson.getString("name");
-        user.name = tweetJson.getString("screen_name");
+        user.id = tweetJson.getString("id");
+        user.userID = tweetJson.getString("screen_name");
+        user.name = tweetJson.getString("name");
         user.profileImage = tweetJson.getString("profile_image_url_https");
 
         return user;
@@ -41,6 +46,10 @@ public class User {
 
     public String getId() {
         return id;
+    }
+
+    public String getUserID() {
+        return userID;
     }
 }
 

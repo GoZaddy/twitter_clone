@@ -5,5 +5,7 @@
     <string name="login_label">Log in</string>
     <string name="intent_scheme">oauth</string>
     <string name="intent_host">faruqtwitter</string>
+    <string name="username_relative_time">\@faruqyusuffG | 18h</string>
+    <string name="username_relative_time_format">\@%1$s | %2$s</string>
 
 </resources>

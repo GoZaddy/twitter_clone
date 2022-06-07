@@ -5,8 +5,10 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,6 +25,7 @@ import com.faruq.apps.twitter.adapters.TweetsAdapter;
 import com.faruq.apps.twitter.databinding.ActivityTimelineBinding;
 import com.faruq.apps.twitter.models.Tweet;
 
+import org.json.JSONArray;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -40,6 +43,7 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdapter tweetsAdapter;
     RecyclerView tweetsRecyclerView;
+    SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +51,21 @@ public class TimelineActivity extends AppCompatActivity {
         activityTimelineBinding = ActivityTimelineBinding.inflate(LayoutInflater.from(this));
         setContentView(activityTimelineBinding.getRoot());
 
+
+
         tweets = new ArrayList<Tweet>();
 
         tweetsAdapter = new TweetsAdapter(this, tweets);
 
         tweetsRecyclerView = activityTimelineBinding.recylerView;
         tweetsRecyclerView.setAdapter(tweetsAdapter);
-        tweetsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        tweetsRecyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(tweetsRecyclerView.getContext(),
+                layoutManager.getOrientation());
+        tweetsRecyclerView.addItemDecoration(dividerItemDecoration);
 
-         newTweetLauncher =  registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+         newTweetLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode() == Activity.RESULT_OK){
@@ -71,6 +81,14 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
+        swipeContainer = activityTimelineBinding.swipeContainer;
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchTimelineAsync(0);
+            }
+        });
+
         activityTimelineBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +100,29 @@ public class TimelineActivity extends AppCompatActivity {
         populateHomeTimeline();
 
 
+    }
+
+    public void fetchTimelineAsync(int page) {
+        // Send the network request to fetch the updated data
+        // `client` here is an instance of Android Async HTTP
+        // getHomeTimeline is an example endpoint.
+        client.getHomeTimeline(new JsonHttpResponseHandler() {
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                // Remember to CLEAR OUT old items before appending in the new ones
+                tweetsAdapter.clear();
+
+                // ...the data has come back, add new items to your adapter...
+                List<Tweet> tweets = Tweet.fromJsonArray(json.jsonArray);
+                tweetsAdapter.addAll(tweets);
+//                tweetsAdapter.notifyDataSetChanged();
+                // Now we call setRefreshing(false) to signal refresh has finished
+                swipeContainer.setRefreshing(false);
+            }
+
+            public void onFailure(int statusCode, Headers headers, String response, Throwable e) {
+                Log.d("DEBUG", "Fetch timeline error: " + e.toString());
+            }
+        });
     }
 
     @Override

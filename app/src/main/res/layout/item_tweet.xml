@@ -3,30 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="88dp"
-        android:layout_height="90dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/screenName"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/imageView"
-        android:text="TextView" />
+        android:text="Fruit"
+        android:textColor="#000"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tweetBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/screenName"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/imageView"
-        android:text="TextView" />
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        android:textColor="#000" />
+
+    <ImageView
+        android:id="@+id/mediaIV"
+        android:layout_width="339dp"
+        android:layout_height="175dp"
+        android:layout_below="@+id/tweetBody"
+        android:layout_alignEnd="@+id/tweetBody"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="0dp"
+        android:layout_toEndOf="@+id/imageView"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/username_relative_time"
+        android:maxLines="1"
+        android:text="@string/username_relative_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/screenName"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="1dp"
+        android:layout_toEndOf="@+id/screenName" />
 </RelativeLayout>
