@@ -38,15 +38,15 @@ import okhttp3.Headers;
 public class TimelineActivity extends AppCompatActivity {
     private static final String TAG = "TimelineActivity";
 
-    TwitterClient client;
-    TimelineActivity context;
-    ActivityTimelineBinding activityTimelineBinding;
-    ActivityResultLauncher<Intent> newTweetLauncher;
-    List<Tweet> tweets;
-    String lastTweetID;
-    TweetsAdapter tweetsAdapter;
-    RecyclerView tweetsRecyclerView;
-    SwipeRefreshLayout swipeContainer;
+    private TwitterClient client;
+    private TimelineActivity context;
+    private ActivityTimelineBinding activityTimelineBinding;
+    private ActivityResultLauncher<Intent> newTweetLauncher;
+    private List<Tweet> tweets;
+    private String lastTweetID;
+    private TweetsAdapter tweetsAdapter;
+    private RecyclerView tweetsRecyclerView;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +62,16 @@ public class TimelineActivity extends AppCompatActivity {
 
         tweetsRecyclerView = activityTimelineBinding.recyclerView;
         tweetsRecyclerView.setAdapter(tweetsAdapter);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         tweetsRecyclerView.setLayoutManager(layoutManager);
+
+        // Add divider to RecyclerView
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(tweetsRecyclerView.getContext(),
                 layoutManager.getOrientation());
         tweetsRecyclerView.addItemDecoration(dividerItemDecoration);
 
+        // add scrollListener to implement endless scrolling
         EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
@@ -91,6 +95,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         tweetsRecyclerView.addOnScrollListener(scrollListener);
 
+
          newTweetLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -98,7 +103,7 @@ public class TimelineActivity extends AppCompatActivity {
                     if (result.getData() != null) {
                         Tweet newTweet = (Tweet) Parcels.unwrap(result.getData().getParcelableExtra("newTweet"));
                         tweets.add(0, newTweet);
-                        tweetsAdapter.notifyDataSetChanged();
+                        tweetsAdapter.notifyItemInserted(0);
                         tweetsRecyclerView.smoothScrollToPosition(0);
                     }
                 }
@@ -115,6 +120,7 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
+        // add click listener to FAB
         activityTimelineBinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,27 +128,21 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
+
         client = TwitterApp.getRestClient(this);
         populateHomeTimeline();
-
 
     }
 
     public void fetchTimelineAsync() {
-        // Send the network request to fetch the updated data
-        // `client` here is an instance of Android Async HTTP
-        // getHomeTimeline is an example endpoint.
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                // Remember to CLEAR OUT old items before appending in the new ones
                 tweetsAdapter.clear();
 
-                // ...the data has come back, add new items to your adapter...
                 List<Tweet> tweets = Tweet.fromJsonArray(json.jsonArray);
                 tweetsAdapter.addAll(tweets);
                 lastTweetID = tweets.get(tweets.size()-1).getId();
-//                tweetsAdapter.notifyDataSetChanged();
-                // Now we call setRefreshing(false) to signal refresh has finished
+
                 swipeContainer.setRefreshing(false);
             }
 
@@ -180,8 +180,7 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                tweets.addAll(Tweet.fromJsonArray(json.jsonArray));
-                tweetsAdapter.notifyDataSetChanged();
+                tweetsAdapter.addAll(Tweet.fromJsonArray(json.jsonArray));
                 lastTweetID = tweets.get(tweets.size()-1).getId();
                 for(Tweet tweet: tweets){
                     tweet.print();

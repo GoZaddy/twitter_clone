@@ -7,8 +7,8 @@ import org.parceler.Parcel;
 
 @Parcel
 public class TweetIndices{
-    Integer startIndex;
-    Integer endIndex;
+    private Integer startIndex;
+    private Integer endIndex;
 
     public TweetIndices(){}
 

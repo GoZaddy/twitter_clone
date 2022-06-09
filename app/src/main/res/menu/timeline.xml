@@ -4,11 +4,11 @@
     <item
         android:id="@+id/compose_tweet"
         android:orderInCategory="1"
-        android:title="Compose Tweet"
+        android:title="@string/menu_timeline_compose_tweet_menu_item_title"
         />
     <item
         android:id="@+id/miActionProgress"
-        android:title="Loading..."
+        android:title="@string/menu_timeline_progress_bar_title"
         android:visible="false"
         android:orderInCategory="100"
         app:showAsAction="always"
@@ -16,6 +16,6 @@
     <item
         android:id="@+id/log_out"
         android:orderInCategory="2"
-        android:title="Log out" />
+        android:title="@string/menu_timeline_log_out_menu_item_title" />
 
 </menu>

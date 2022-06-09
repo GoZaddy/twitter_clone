@@ -6,10 +6,10 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Sizes {
-    Size thumbSize;
-    Size largeSize;
-    Size mediumSize;
-    Size smallSize;
+    private Size thumbSize;
+    private Size largeSize;
+    private Size mediumSize;
+    private Size smallSize;
 
     public Sizes(){}
 

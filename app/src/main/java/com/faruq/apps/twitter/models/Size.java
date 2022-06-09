@@ -4,9 +4,9 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Size {
-    Integer height;
-    Integer width;
-    String resize;
+    private Integer height;
+    private Integer width;
+    private String resize;
 
     public Size(){}
 

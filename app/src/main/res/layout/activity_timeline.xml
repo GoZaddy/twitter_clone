@@ -25,7 +25,7 @@
             android:layout_gravity="end|bottom"
             android:src="@android:drawable/ic_input_add"
             android:backgroundTint="@color/twitterLightBlue"
-            android:contentDescription="Compose tweet"
+            android:contentDescription="@string/timeline_fab_content_description"
             android:tint="#fff"
             android:layout_margin="16dp" />
 

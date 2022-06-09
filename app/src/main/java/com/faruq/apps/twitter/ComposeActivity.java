@@ -23,21 +23,19 @@ import org.parceler.Parcels;
 import okhttp3.Headers;
 
 public class ComposeActivity extends AppCompatActivity {
-    ActivityComposeBinding binding;
-    EditText tweetText;
-    Button tweetButton;
-    TwitterClient twitterClient;
+    private EditText tweetText;
+    private TwitterClient twitterClient;
     private static final String TAG = "ComposeActivity";
-    MenuItem progressBar;
+    private MenuItem progressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityComposeBinding.inflate(LayoutInflater.from(this));
+        com.faruq.apps.twitter.databinding.ActivityComposeBinding binding = ActivityComposeBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
 
-        tweetButton = binding.button;
+        Button tweetButton = binding.button;
         tweetText = binding.tweetText;
 
 

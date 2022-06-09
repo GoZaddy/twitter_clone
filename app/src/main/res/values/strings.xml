@@ -7,5 +7,17 @@
     <string name="intent_host">faruqtwitter</string>
     <string name="username_relative_time">\@faruqyusuffG | 18h</string>
     <string name="username_relative_time_format">\@%1$s | %2$s</string>
+    <string name="compose_tweet_edittext_hint">What\'s happening?</string>
+    <string name="compose_tweet_button_text">Tweet</string>
+    <string name="timeline_fab_content_description">Compose tweet</string>
+    <string name="item_tweet_profile_picture_content_description">Profile picture of user</string>
+    <string name="item_tweet_media_content_description">Media attached to tweet</string>
+    <string name="item_tweet_reply_button_content_description">Reply to tweet</string>
+    <string name="item_tweet_retweet_button_content_description">Retweet tweet</string>
+    <string name="item_tweet_favorite_button_content_description">Favorite tweet</string>
+    <string name="menu_compose_progress_bar_title">Loading…</string>
+    <string name="menu_timeline_progress_bar_title">Loading…</string>
+    <string name="menu_timeline_compose_tweet_menu_item_title">Compose Tweet</string>
+    <string name="menu_timeline_log_out_menu_item_title">Log out</string>
 
 </resources>

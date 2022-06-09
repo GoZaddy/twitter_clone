@@ -18,16 +18,31 @@ import com.faruq.apps.twitter.models.User;
 @Parcel
 public class Tweet {
     // Define database columns and associated fields
-    String id;
+    private String id;
 
-    String body;
+    private String body;
 
-    String createdAt;
+    private String createdAt;
 
     // Use @Embedded to keep the column entries as part of the same table while still
     // keeping the logical separation between the two objects.
-    User user;
-    Media media;
+    private User user;
+
+    private Media media;
+
+    private Boolean isTweetLiked;
+
+    private Boolean isTweetRetweeted;
+
+    private Integer retweetCount;
+
+    private Integer likeCount;
+
+
+    // tweet that was retweeted if this tweet is a retweet
+    private Tweet retweetedStatus;
+
+
 
     public Tweet(){}
 
@@ -38,6 +53,17 @@ public class Tweet {
             this.user = User.fromJSON(object.getJSONObject("user"));
             this.body = object.getString("text");
             this.createdAt = object.getString("created_at");
+            this.isTweetLiked = object.getBoolean("favorited");
+            this.isTweetRetweeted = object.getBoolean("retweeted");
+            this.retweetCount = object.getInt("retweet_count");
+            this.likeCount = object.getInt("favorite_count");
+
+            try {
+                this.retweetedStatus = new Tweet(object.getJSONObject("retweetedStatus"));
+            } catch (JSONException jsonException){
+                this.retweetedStatus = null;
+            }
+
 
             try{
                 this.media = Media.fromJSON(object.getJSONObject("entities").getJSONArray("media").getJSONObject(0));
@@ -121,7 +147,10 @@ public class Tweet {
         System.out.println("id: "+id);
         System.out.println("body: "+body);
         System.out.println("createdAt: "+createdAt);
-        System.out.println("relative time: "+this.getRelativeTime());
+        System.out.println("like count: "+this.getLikeCount());
+        System.out.println("retweet count: "+this.getRetweetCount());
+        System.out.println("is retweeted: "+this.getTweetRetweeted());
+        System.out.println("is liked: "+this.getTweetLiked());
     }
 
     public String getId() {
@@ -144,7 +173,40 @@ public class Tweet {
         return media;
     }
 
+    public Boolean getTweetLiked() {
+        return isTweetLiked;
+    }
 
+    public Boolean getTweetRetweeted() {
+        return isTweetRetweeted;
+    }
 
+    public Integer getRetweetCount() {
+        return retweetCount;
+    }
+
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public Tweet getRetweetedStatus() {
+        return retweetedStatus;
+    }
+
+    public void setTweetLiked(Boolean tweetLiked) {
+        isTweetLiked = tweetLiked;
+    }
+
+    public void setTweetRetweeted(Boolean tweetRetweeted) {
+        isTweetRetweeted = tweetRetweeted;
+    }
+
+    public void setRetweetCount(Integer retweetCount) {
+        this.retweetCount = retweetCount;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
 }
 

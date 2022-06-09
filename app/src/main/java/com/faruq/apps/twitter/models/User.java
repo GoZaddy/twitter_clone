@@ -9,13 +9,13 @@ import org.parceler.Parcel;
 @Parcel
 public class User {
 
-    String id;
+    private String id;
 
-    String userID;
+    private String userID;
 
-    String name;
+    private String name;
 
-    String profileImage;
+    private String profileImage;
 
     // normally this field would be annotated @PrimaryKey because this is an embedded object
     // it is not needed

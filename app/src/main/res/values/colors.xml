@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="twitterLightBlue">#00acee</color>
+    <color name="favoritedTweetRed">#f91880</color>
+    <color name="retweetedTweetGreen">#00ba7c</color>
+    <color name="defaultTweetActionsTextColor">#536471</color>
 </resources>

@@ -11,12 +11,12 @@ import org.parceler.Parcel;
 
 @Parcel
 public class Media {
-    String id;
-    String mediaURL;
-    String type;
-    TweetIndices tweetIndices;
-    Sizes sizes;
-    String jsonString;
+    private String id;
+    private String mediaURL;
+    private String type;
+    private TweetIndices tweetIndices;
+    private Sizes sizes;
+    private String jsonString;
 
     public Media(){}
 
