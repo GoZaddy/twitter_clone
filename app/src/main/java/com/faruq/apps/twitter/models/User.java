@@ -17,6 +17,8 @@ public class User {
 
     private String profileImage;
 
+    private Boolean isVerified;
+
     // normally this field would be annotated @PrimaryKey because this is an embedded object
     // it is not needed
 
@@ -32,6 +34,7 @@ public class User {
         user.userID = tweetJson.getString("screen_name");
         user.name = tweetJson.getString("name");
         user.profileImage = tweetJson.getString("profile_image_url_https");
+        user.isVerified = tweetJson.getBoolean("verified");
 
         return user;
     }
@@ -50,6 +53,10 @@ public class User {
 
     public String getUserID() {
         return userID;
+    }
+
+    public Boolean getVerified() {
+        return isVerified;
     }
 }
 

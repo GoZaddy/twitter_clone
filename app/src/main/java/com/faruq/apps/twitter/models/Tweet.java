@@ -208,5 +208,25 @@ public class Tweet {
     public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
     }
+
+    public void favoriteTweet(){
+        this.setTweetLiked(true);
+        this.setLikeCount(this.likeCount+1);
+    }
+
+    public void unfavoriteTweet(){
+        this.setTweetLiked(false);
+        this.setLikeCount(this.likeCount-1);
+    }
+
+    public void retweetTweet(){
+        this.setTweetRetweeted(true);
+        this.setRetweetCount(this.retweetCount+1);
+    }
+
+    public void unretweetTweet(){
+        this.setTweetRetweeted(false);
+        this.setRetweetCount(this.retweetCount-1);
+    }
 }
 

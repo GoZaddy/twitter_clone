@@ -124,35 +124,41 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
             TwitterClient twitterClient = TwitterApp.getRestClient(context);
             favoriteButton.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
                     if (tweet.getTweetLiked() == true){
+                        tweet.unfavoriteTweet();
+                        tweets.set(position, tweet);
+                        notifyItemChanged(position);
                         twitterClient.unfavoriteTweet(tweet.getId(), new JsonHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                                tweet.setTweetLiked(false);
-                                tweet.setLikeCount(tweet.getLikeCount()-1);
-                                tweets.set(position, tweet);
-                                notifyItemChanged(position);
+
                             }
 
                             @Override
                             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                tweet.favoriteTweet();
+                                tweets.set(position, tweet);
+                                notifyItemChanged(position);
                                 Log.e(TAG, "error occurred while unfavoriting tweet: "+response, throwable);
                             }
                         });
                     } else {
+                        tweet.favoriteTweet();
+                        tweets.set(position, tweet);
+                        notifyItemChanged(position);
                         twitterClient.favoriteTweet(tweet.getId(), new JsonHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                                tweet.setTweetLiked(true);
-                                tweet.setLikeCount(tweet.getLikeCount()+1);
-                                tweets.set(position, tweet);
-                                notifyItemChanged(position);
                             }
 
                             @Override
                             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                tweet.unfavoriteTweet();
+                                tweets.set(position, tweet);
+                                notifyItemChanged(position);
                                 Log.e(TAG, "error occurred while favoriting tweet: "+response, throwable);
                             }
                         });
@@ -165,32 +171,36 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     if (tweet.getTweetRetweeted() == true){
+                        tweet.unretweetTweet();
+                        tweets.set(position, tweet);
+                        notifyItemChanged(position);
                         twitterClient.unretweetTweet(tweet.getId(), new JsonHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                                tweet.setTweetRetweeted(false);
-                                tweet.setRetweetCount(tweet.getRetweetCount()-1);
-                                tweets.set(position, tweet);
-                                notifyItemChanged(position);
                             }
 
                             @Override
                             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                tweet.retweetTweet();
+                                tweets.set(position, tweet);
+                                notifyItemChanged(position);
                                 Log.e(TAG, "error occurred while unretweeting tweet: "+response, throwable);
                             }
                         });
                     } else {
+                        tweet.retweetTweet();
+                        tweets.set(position, tweet);
+                        notifyItemChanged(position);
                         twitterClient.retweetTweet(tweet.getId(), new JsonHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                                tweet.setTweetRetweeted(true);
-                                tweet.setRetweetCount(tweet.getRetweetCount()+1);
-                                tweets.set(position, tweet);
-                                notifyItemChanged(position);
                             }
 
                             @Override
                             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                tweet.unretweetTweet();
+                                tweets.set(position, tweet);
+                                notifyItemChanged(position);
                                 Log.e(TAG, "error occurred while retweeting tweet: "+response, throwable);
                             }
                         });
