@@ -32,7 +32,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        itemTweetBinding = ItemTweetBinding.inflate(LayoutInflater.from(this.context));
+        // make sure to specify parent of the recyclerView item so the root element at item_tweet.xml has access to its parent
+        itemTweetBinding = ItemTweetBinding.inflate(LayoutInflater.from(this.context), parent, false);
         return new ViewHolder(itemTweetBinding);
     }
 
@@ -95,7 +96,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         .into(mediaIV);
             } else {
                 mediaIV.setVisibility(View.GONE);
-
             }
 
         }
