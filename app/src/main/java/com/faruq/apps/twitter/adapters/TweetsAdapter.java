@@ -22,6 +22,7 @@ import com.faruq.apps.twitter.TwitterApp;
 import com.faruq.apps.twitter.TwitterClient;
 import com.faruq.apps.twitter.databinding.ItemTweetBinding;
 import com.faruq.apps.twitter.models.Tweet;
+import com.faruq.apps.twitter.utils.FormatNumbers;
 
 import java.util.List;
 
@@ -205,8 +206,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
-            retweetCountTextView.setText(tweet.getRetweetCount().toString());
-            favoriteCountTextView.setText(tweet.getLikeCount().toString());
+            retweetCountTextView.setText(FormatNumbers.ShortenNumber(tweet.getRetweetCount()));
+            favoriteCountTextView.setText(FormatNumbers.ShortenNumber(tweet.getLikeCount()));
+
+
 
 
             if(tweet.getTweetLiked() == true){

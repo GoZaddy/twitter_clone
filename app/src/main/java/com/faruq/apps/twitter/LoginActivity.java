@@ -6,12 +6,16 @@ import android.view.Menu;
 import android.view.View;
 
 import com.codepath.oauth.OAuthLoginActionBarActivity;
+import com.faruq.apps.twitter.utils.FormatNumbers;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		System.out.println(FormatNumbers.ShortenNumber(19250));
+		System.out.println(FormatNumbers.ShortenNumber(627101317));
+		System.out.println(FormatNumbers.ShortenNumber(20231939));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 

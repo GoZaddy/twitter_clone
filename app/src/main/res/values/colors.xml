@@ -4,4 +4,5 @@
     <color name="favoritedTweetRed">#f91880</color>
     <color name="retweetedTweetGreen">#00ba7c</color>
     <color name="defaultTweetActionsTextColor">#536471</color>
+    <color name="tweetBodyColor">#0f1419</color>
 </resources>

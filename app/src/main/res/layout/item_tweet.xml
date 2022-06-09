@@ -25,11 +25,11 @@
         android:ellipsize="end"
         android:maxWidth="100dp"
         android:maxLines="1"
-        tools:text="Fruit"
-        android:textColor="#000"
+        android:textColor="@color/tweetBodyColor"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        tools:text="Fruit" />
 
     <TextView
         android:id="@+id/tweetBody"
@@ -38,11 +38,13 @@
         android:layout_below="@+id/screenName"
         android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/imageView"
-        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        android:textColor="#000"
+        android:textColor="@color/tweetBodyColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/screenName"
-        app:layout_constraintTop_toBottomOf="@+id/username_relative_time" />
+        app:layout_constraintTop_toBottomOf="@+id/username_relative_time"
+        android:autoLink="all"
+        android:linksClickable="true"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
 
     <ImageView
         android:id="@+id/mediaIV"
@@ -69,6 +71,7 @@
         android:layout_toEndOf="@+id/screenName"
         android:maxLines="1"
         android:text="@string/username_relative_time"
+        android:textColor="@color/defaultTweetActionsTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@+id/screenName"
