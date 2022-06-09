@@ -32,6 +32,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     private final Context context;
     private final List<Tweet> tweets;
 
+
     public TweetsAdapter(Context context, List<Tweet> tweets){
         this.context = context;
         this.tweets = tweets;
@@ -216,8 +217,19 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
-            retweetCountTextView.setText(FormatNumbers.ShortenNumber(tweet.getRetweetCount()));
-            favoriteCountTextView.setText(FormatNumbers.ShortenNumber(tweet.getLikeCount()));
+            if (tweet.getRetweetCount() > 0){
+                retweetCountTextView.setText(FormatNumbers.ShortenNumber(tweet.getRetweetCount()));
+            } else {
+                retweetCountTextView.setText("");
+            }
+
+            if (tweet.getLikeCount() > 0){
+                favoriteCountTextView.setText(FormatNumbers.ShortenNumber(tweet.getLikeCount()));
+            } else {
+                favoriteCountTextView.setText("");
+            }
+
+
 
 
 
