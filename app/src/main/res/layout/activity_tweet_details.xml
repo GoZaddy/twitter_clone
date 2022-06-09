@@ -4,6 +4,218 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".TweetDetailsActivity">
+
+    <TextView
+        android:id="@+id/favorite_count_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/defaultTweetActionsTextColor"
+        app:layout_constraintEnd_toEndOf="@+id/body_text_view"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/retweet_count_text_view"
+        app:layout_constraintTop_toTopOf="@+id/retweet_count_text_view"
+        tools:text="119k Likes" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/flexboxLayout" />
+
+    <ImageView
+        android:id="@+id/profile_picture_image_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/tweetBodyColor"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/profile_picture_image_view"
+        app:layout_constraintTop_toTopOf="@+id/profile_picture_image_view"
+        tools:text="Fruit!" />
+
+    <TextView
+        android:id="@+id/username_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/defaultTweetActionsTextColor"
+        app:layout_constraintStart_toStartOf="@+id/name_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/name_text_view"
+        tools:text="\@faruqyusuffG" />
+
+    <TextView
+        android:id="@+id/body_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:autoLink="all"
+        android:clickable="true"
+        android:textColor="@color/tweetBodyColor"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_picture_image_view"
+        tools:text="Wake Up! Collect your Money 🥶" />
+
+    <ImageView
+        android:id="@+id/media_image_view"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/body_text_view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/body_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/body_text_view"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="@+id/divider4"
+        app:layout_constraintStart_toStartOf="@+id/divider4"
+        app:layout_constraintTop_toBottomOf="@+id/retweet_count_text_view" />
+
+    <TextView
+        android:id="@+id/created_at_time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/defaultTweetActionsTextColor"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/body_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/media_image_view"
+        tools:text="8:56" />
+
+    <TextView
+        android:id="@+id/tweet_source_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:clickable="true"
+        android:textColor="@color/defaultTweetActionsTextColor"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/body_text_view"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/created_at_date_text_view"
+        app:layout_constraintTop_toTopOf="@+id/created_at_date_text_view"
+        tools:text="Twitter Web App" />
+
+    <TextView
+        android:id="@+id/created_at_date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/defaultTweetActionsTextColor"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/created_at_time_text_view"
+        app:layout_constraintTop_toTopOf="@+id/created_at_time_text_view"
+        tools:text="08 Jun 22" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexboxLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:alignContent="stretch"
+        app:alignItems="stretch"
+        app:justifyContent="space_around"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/reply_button"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/item_tweet_reply_button_content_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_reply" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/retweet_button"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/item_tweet_retweet_button_content_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/ic_vector_retweet_stroke" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageButton
+                android:id="@+id/favorite_button"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/item_tweet_favorite_button_content_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck"
+                tools:srcCompat="@drawable/ic_vector_heart_stroke" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <TextView
+        android:id="@+id/retweet_count_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/defaultTweetActionsTextColor"
+        app:layout_constraintStart_toStartOf="@+id/body_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/divider4"
+        tools:text="7,872 Retweets" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="@+id/body_text_view"
+        app:layout_constraintStart_toStartOf="@+id/body_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/created_at_time_text_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

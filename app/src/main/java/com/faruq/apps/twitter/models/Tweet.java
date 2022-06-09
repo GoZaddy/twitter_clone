@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 
 import com.faruq.apps.twitter.models.User;
 
@@ -42,6 +43,8 @@ public class Tweet {
     // tweet that was retweeted if this tweet is a retweet
     private Tweet retweetedStatus;
 
+    private String source;
+
 
 
     public Tweet(){}
@@ -57,6 +60,7 @@ public class Tweet {
             this.isTweetRetweeted = object.getBoolean("retweeted");
             this.retweetCount = object.getInt("retweet_count");
             this.likeCount = object.getInt("favorite_count");
+            this.source = object.getString("source");
 
             try {
                 this.retweetedStatus = new Tweet(object.getJSONObject("retweetedStatus"));
@@ -227,6 +231,13 @@ public class Tweet {
     public void unretweetTweet(){
         this.setTweetRetweeted(false);
         this.setRetweetCount(this.retweetCount-1);
+    }
+
+    public String getSource() {
+        if (Objects.equals(this.source, "web")){
+            return "Twitter Web App";
+        }
+        return source;
     }
 }
 

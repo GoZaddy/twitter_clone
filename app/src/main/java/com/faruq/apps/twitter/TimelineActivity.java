@@ -71,6 +71,8 @@ public class TimelineActivity extends AppCompatActivity {
                 layoutManager.getOrientation());
         tweetsRecyclerView.addItemDecoration(dividerItemDecoration);
 
+
+
         // add scrollListener to implement endless scrolling
         EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override

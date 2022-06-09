@@ -1,6 +1,7 @@
 package com.faruq.apps.twitter.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,11 +19,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.faruq.apps.twitter.R;
+import com.faruq.apps.twitter.TweetDetailsActivity;
 import com.faruq.apps.twitter.TwitterApp;
 import com.faruq.apps.twitter.TwitterClient;
 import com.faruq.apps.twitter.databinding.ItemTweetBinding;
 import com.faruq.apps.twitter.models.Tweet;
 import com.faruq.apps.twitter.utils.FormatNumbers;
+
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -217,6 +222,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 }
             });
 
+
+
             if (tweet.getRetweetCount() > 0){
                 retweetCountTextView.setText(FormatNumbers.ShortenNumber(tweet.getRetweetCount()));
             } else {
@@ -249,6 +256,15 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 retweetButton.setImageResource(R.drawable.ic_vector_retweet_stroke);
                 retweetCountTextView.setTextColor(context.getResources().getColor(R.color.defaultTweetActionsTextColor));
             }
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, TweetDetailsActivity.class);
+                    intent.putExtra(TweetDetailsActivity.class.getSimpleName(), Parcels.wrap(tweet));
+                    context.startActivity(intent);
+                }
+            });
 
         }
     }
