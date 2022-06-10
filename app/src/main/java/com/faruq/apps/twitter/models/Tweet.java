@@ -63,7 +63,7 @@ public class Tweet {
             this.source = object.getString("source");
 
             try {
-                this.retweetedStatus = new Tweet(object.getJSONObject("retweetedStatus"));
+                this.retweetedStatus = new Tweet(object.getJSONObject("retweeted_status"));
             } catch (JSONException jsonException){
                 this.retweetedStatus = null;
             }
@@ -155,6 +155,12 @@ public class Tweet {
         System.out.println("retweet count: "+this.getRetweetCount());
         System.out.println("is retweeted: "+this.getTweetRetweeted());
         System.out.println("is liked: "+this.getTweetLiked());
+
+        if (this.getRetweetedStatus() != null){
+            System.out.print("retweeted tweet:");
+            this.getRetweetedStatus().print();
+        }
+
     }
 
     public String getId() {

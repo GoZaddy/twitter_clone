@@ -2,21 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
-    android:padding="15dp"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:padding="15dp">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/item_tweet_profile_picture_content_description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@string/item_tweet_profile_picture_content_description" />
+        app:layout_constraintTop_toBottomOf="@+id/retweet_status_retweet_icon"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/screenName"
@@ -40,12 +42,12 @@
         android:layout_below="@+id/screenName"
         android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/imageView"
+        android:autoLink="all"
+        android:linksClickable="true"
         android:textColor="@color/tweetBodyColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/screenName"
         app:layout_constraintTop_toBottomOf="@+id/username_relative_time"
-        android:autoLink="all"
-        android:linksClickable="true"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
 
     <ImageView
@@ -56,12 +58,12 @@
         android:layout_alignEnd="@+id/tweetBody"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/imageView"
+        android:contentDescription="@string/item_tweet_media_content_description"
         app:layout_constraintEnd_toEndOf="@id/tweetBody"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tweetBody"
         app:layout_constraintTop_toBottomOf="@+id/tweetBody"
-        tools:srcCompat="@tools:sample/backgrounds/scenic"
-        android:contentDescription="@string/item_tweet_media_content_description" />
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 
     <TextView
@@ -80,6 +82,7 @@
         app:layout_constraintTop_toTopOf="@+id/screenName" />
 
     <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexbox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -91,36 +94,39 @@
         app:layout_constraintTop_toBottomOf="@+id/mediaIV">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/reply_button_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="28dp">
 
             <ImageButton
                 android:id="@+id/reply_button"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/item_tweet_reply_button_content_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_reply"
-                android:contentDescription="@string/item_tweet_reply_button_content_description" />
-
+                app:srcCompat="@drawable/ic_reply" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/retweet_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="108dp">
 
             <ImageButton
                 android:id="@+id/retweet_button"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/item_tweet_retweet_button_content_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/ic_vector_retweet_stroke"
-                android:contentDescription="@string/item_tweet_retweet_button_content_description"/>
+                tools:srcCompat="@drawable/ic_vector_retweet_stroke" />
 
             <TextView
                 android:id="@+id/retweet_count"
@@ -137,8 +143,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/favorite_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="241dp">
 
 
             <ImageButton
@@ -147,11 +155,11 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/item_tweet_favorite_button_content_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/ic_vector_heart_stroke"
                 tools:ignore="TouchTargetSizeCheck"
-                android:contentDescription="@string/item_tweet_favorite_button_content_description"/>
+                tools:srcCompat="@drawable/ic_vector_heart_stroke" />
 
             <TextView
                 android:id="@+id/favorite_count"
@@ -169,6 +177,28 @@
 
 
     </com.google.android.flexbox.FlexboxLayout>
+
+    <TextView
+        android:id="@+id/retweet_status_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/defaultTweetActionsTextColor"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/retweet_status_retweet_icon"
+        app:layout_constraintTop_toTopOf="@+id/retweet_status_retweet_icon"
+        tools:text="Arya Stark retweeted" />
+
+    <ImageView
+        android:id="@+id/retweet_status_retweet_icon"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_vector_retweet" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,8 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -92,6 +94,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         private final ImageButton retweetButton;
         private final ImageButton favoriteButton;
 
+        private final TextView retweetStatusTV;
+
+        private final ConstraintLayout constraintLayout;
+        private final ImageView retweetStatusIcon;
+
         private static final String TAG = "TweetsAdapterViewHolder";
 
 
@@ -111,11 +118,41 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             retweetButton = itemView.retweetButton;
             favoriteButton = itemView.favoriteButton;
 
+            retweetStatusTV = itemView.retweetStatusTextView;
 
+            constraintLayout = itemView.constraintLayout;
+            retweetStatusIcon = itemView.retweetStatusRetweetIcon;
         }
 
         public void bind(int position, Context context){
-            Tweet tweet = tweets.get(position);
+            Tweet initialTweet = tweets.get(position);
+            String message = null;
+
+            if (initialTweet.getRetweetedStatus() != null){
+                message = initialTweet.getUser().getName()+" Retweeted";
+                initialTweet = initialTweet.getRetweetedStatus();
+
+            }
+            Tweet tweet = initialTweet;
+            if (message != null){
+                // constrain top of profile image to bottom of retweet icon
+                retweetStatusIcon.setVisibility(View.VISIBLE);
+                retweetStatusTV.setVisibility(View.VISIBLE);
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone(constraintLayout);
+                constraintSet.connect(profileImage.getId(),ConstraintSet.TOP,retweetStatusIcon.getId(),ConstraintSet.BOTTOM,40);
+                constraintSet.applyTo(constraintLayout);
+
+                retweetStatusTV.setText(message);
+            } else {
+                retweetStatusIcon.setVisibility(View.GONE);
+                retweetStatusTV.setVisibility(View.GONE);
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone(constraintLayout);
+                constraintSet.connect(profileImage.getId(),ConstraintSet.TOP,constraintLayout.getId(),ConstraintSet.TOP,0);
+                constraintSet.applyTo(constraintLayout);
+                // constrain top of profile image to top of constraint layout
+            }
             tvBody.setText(tweet.getBody());
             tvScreenName.setText(tweet.getUser().getName());
             usernameRelativeTime.setText(context.getString(R.string.username_relative_time_format, tweet.getUser().getUserID(), tweet.getRelativeTime()));
@@ -137,7 +174,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
             TwitterClient twitterClient = TwitterApp.getRestClient(context);
             favoriteButton.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View view) {
                     if (tweet.getTweetLiked() == true){
@@ -268,28 +304,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             }
 
 
-//            Intent intent = new Intent(context, TweetDetailsActivity.class);
-//            intent.putExtra(TweetDetailsActivity.class.getSimpleName(), Parcels.wrap(tweet));
-//            intent.putExtra("tweet_position", position);
-//            ActivityResultLauncher<Intent> detailsTweetLauncher = ((ComponentActivity) context).registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getResultCode() == Activity.RESULT_OK){
-//                        if (result.getData() != null) {
-//                            Tweet newTweet = (Tweet) Parcels.unwrap(result.getData().getParcelableExtra("newTweet"));
-//                            tweets.set(position, newTweet);
-//                            notifyItemChanged(position);
-//                        }
-//                    }
-//
-//
-//                }
-//            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-//                    detailsTweetLauncher.launch(intent);
                     Intent intent = new Intent(context, TweetDetailsActivity.class);
                     intent.putExtra(TweetDetailsActivity.class.getSimpleName(), Parcels.wrap(tweet));
                     intent.putExtra("tweet_position", position);
