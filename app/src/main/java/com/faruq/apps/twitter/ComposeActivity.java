@@ -35,7 +35,7 @@ public class ComposeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.faruq.apps.twitter.databinding.ActivityComposeBinding binding = ActivityComposeBinding.inflate(LayoutInflater.from(this));
+        ActivityComposeBinding binding = ActivityComposeBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
 
         Toolbar toolbar = binding.toolbar;
