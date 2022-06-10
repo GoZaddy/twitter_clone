@@ -22,5 +22,6 @@
     <string name="compose_tweet_edit_text_reply_format">\@%1$s  </string>
     <string name="compose_tweet_toolbar_title">Compose Tweet</string>
     <string name="tweet_details_toolbar_title">Tweet</string>
+    <string name="login_toolbar_title">Log in to Twitter</string>
 
 </resources>

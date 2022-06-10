@@ -2,10 +2,14 @@ package com.faruq.apps.twitter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.codepath.oauth.OAuthLoginActionBarActivity;
+import com.faruq.apps.twitter.databinding.ActivityLoginBinding;
 import com.faruq.apps.twitter.utils.FormatNumbers;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
@@ -17,7 +21,12 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 		System.out.println(FormatNumbers.ShortenNumber(627101317));
 		System.out.println(FormatNumbers.ShortenNumber(20231939));
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
+		ActivityLoginBinding binding = ActivityLoginBinding.inflate(LayoutInflater.from(this));
+		setContentView(binding.getRoot());
+
+		Toolbar toolbar = binding.toolbar;
+
+		setSupportActionBar(toolbar);
 
 	}
 
