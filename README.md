@@ -58,7 +58,7 @@ Describe any challenges encountered while building the app.
 
 * [Flexbox](https://github.com/google/flexbox-layoutp) - Flexbox for android
 * [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
-* [Parceler] (https://github.com/johncarl81/parceler) - Android Parcelables made easy through code generation.
+* [Parceler](https://github.com/johncarl81/parceler) - Android Parcelables made easy through code generation.
 * [CodePath OAuth Handler](https://github.com/codepath/android-oauth-handler) - Android OAuth Wrapper makes authenticating with APIs simple
 
 ## License
