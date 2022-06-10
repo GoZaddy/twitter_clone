@@ -5,6 +5,8 @@
         android:id="@+id/compose_tweet"
         android:orderInCategory="1"
         android:title="@string/menu_timeline_compose_tweet_menu_item_title"
+        app:showAsAction="always"
+        android:icon="@drawable/vector_compose_fab"
         />
     <item
         android:id="@+id/miActionProgress"
