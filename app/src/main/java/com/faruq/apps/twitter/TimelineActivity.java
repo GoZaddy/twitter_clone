@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,9 +55,14 @@ public class TimelineActivity extends AppCompatActivity {
         activityTimelineBinding = ActivityTimelineBinding.inflate(LayoutInflater.from(this));
         setContentView(activityTimelineBinding.getRoot());
 
+        Toolbar toolbar = activityTimelineBinding.toolbar;
+
+        setSupportActionBar(toolbar);
+
 
 
         tweets = new ArrayList<Tweet>();
+
 
         tweetsAdapter = new TweetsAdapter(this, tweets);
 
@@ -133,6 +139,8 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
         populateHomeTimeline();
+
+
 
     }
 

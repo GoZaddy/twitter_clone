@@ -1,6 +1,7 @@
 package com.faruq.apps.twitter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import com.faruq.apps.twitter.models.Tweet;
 
 import org.parceler.Parcels;
 
+import java.util.Objects;
+
 import okhttp3.Headers;
 
 public class ComposeActivity extends AppCompatActivity {
@@ -35,8 +38,22 @@ public class ComposeActivity extends AppCompatActivity {
         com.faruq.apps.twitter.databinding.ActivityComposeBinding binding = ActivityComposeBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
 
+        Toolbar toolbar = binding.toolbar;
+
+        setSupportActionBar(toolbar);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Button tweetButton = binding.button;
         tweetText = binding.tweetText;
+
+        String action = getIntent().getStringExtra("action");
+        if (Objects.equals(action, "compose")){
+            String username = getIntent().getStringExtra("metadata_user_name");
+            tweetText.setText(getString(R.string.compose_tweet_edit_text_reply_format, username));
+            tweetText.requestFocus();
+        }
 
 
 
@@ -98,5 +115,16 @@ public class ComposeActivity extends AppCompatActivity {
 
         // Return to finish
         return super.onPrepareOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

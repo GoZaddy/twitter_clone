@@ -1,11 +1,15 @@
 package com.faruq.apps.twitter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,6 +23,8 @@ import com.faruq.apps.twitter.models.Tweet;
 import com.faruq.apps.twitter.utils.DateFormatter;
 
 import org.parceler.Parcels;
+
+import java.util.Objects;
 
 import okhttp3.Headers;
 
@@ -45,6 +51,12 @@ public class TweetDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityTweetDetailsBinding binding = ActivityTweetDetailsBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
+
+        Toolbar toolbar = binding.toolbar;
+
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // initialize View objects
         nameTextView = binding.nameTextView;
@@ -102,7 +114,10 @@ public class TweetDetailsActivity extends AppCompatActivity {
         replyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(TweetDetailsActivity.this, ComposeActivity.class);
+                intent.putExtra("action", "compose");
+                intent.putExtra("metadata_user_name", tweet.getUser().getUserID());
+                startActivity(intent);
             }
         });
 
@@ -212,5 +227,22 @@ public class TweetDetailsActivity extends AppCompatActivity {
     public void renderUnretweetTweet(){
         setRetweetCountTV(tweet.getRetweetCount().toString());
         retweetButton.setImageResource(R.drawable.ic_vector_retweet_stroke);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -19,5 +19,8 @@
     <string name="menu_timeline_progress_bar_title">Loading…</string>
     <string name="menu_timeline_compose_tweet_menu_item_title">Compose Tweet</string>
     <string name="menu_timeline_log_out_menu_item_title">Log out</string>
+    <string name="compose_tweet_edit_text_reply_format">\@%1$s  </string>
+    <string name="compose_tweet_toolbar_title">Compose Tweet</string>
+    <string name="tweet_details_toolbar_title">Tweet</string>
 
 </resources>

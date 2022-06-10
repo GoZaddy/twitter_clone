@@ -1,5 +1,6 @@
 package com.faruq.apps.twitter.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Layout;
@@ -12,12 +13,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.ComponentActivity;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.faruq.apps.twitter.ComposeActivity;
 import com.faruq.apps.twitter.R;
 import com.faruq.apps.twitter.TweetDetailsActivity;
 import com.faruq.apps.twitter.TwitterApp;
@@ -218,7 +225,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             replyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(context, ComposeActivity.class);
+                    intent.putExtra("action", "compose");
+                    intent.putExtra("metadata_user_name", tweet.getUser().getUserID());
+                    context.startActivity(intent);
                 }
             });
 
@@ -257,11 +267,32 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 retweetCountTextView.setTextColor(context.getResources().getColor(R.color.defaultTweetActionsTextColor));
             }
 
+
+//            Intent intent = new Intent(context, TweetDetailsActivity.class);
+//            intent.putExtra(TweetDetailsActivity.class.getSimpleName(), Parcels.wrap(tweet));
+//            intent.putExtra("tweet_position", position);
+//            ActivityResultLauncher<Intent> detailsTweetLauncher = ((ComponentActivity) context).registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+//                @Override
+//                public void onActivityResult(ActivityResult result) {
+//                    if (result.getResultCode() == Activity.RESULT_OK){
+//                        if (result.getData() != null) {
+//                            Tweet newTweet = (Tweet) Parcels.unwrap(result.getData().getParcelableExtra("newTweet"));
+//                            tweets.set(position, newTweet);
+//                            notifyItemChanged(position);
+//                        }
+//                    }
+//
+//
+//                }
+//            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+//                    detailsTweetLauncher.launch(intent);
                     Intent intent = new Intent(context, TweetDetailsActivity.class);
                     intent.putExtra(TweetDetailsActivity.class.getSimpleName(), Parcels.wrap(tweet));
+                    intent.putExtra("tweet_position", position);
                     context.startActivity(intent);
                 }
             });
